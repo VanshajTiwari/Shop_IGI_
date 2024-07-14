@@ -116,7 +116,7 @@ function Products() {
 
   useEffect(() => {
     dispatch(fetchProducts());
-    console.log("called");
+    // console.log("called");
   }, [dispatch]);
 
   const filteredProducts = products.filter((product) => {

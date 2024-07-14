@@ -27,6 +27,7 @@ import UpdateProduct from './admin/product/updateProduct';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import AdminLayout from './AdminLayout.jsx'
+import { ContextAPICompo } from './Context/contextAPI.jsx'
 
 const isAdmin=false;
 
@@ -73,6 +74,8 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
-    <RouterProvider router={router} />
+    <ContextAPICompo>
+      <RouterProvider router={router} />
+    </ContextAPICompo>
   </Provider>,
 )

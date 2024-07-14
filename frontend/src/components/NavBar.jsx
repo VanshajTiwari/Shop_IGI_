@@ -5,16 +5,21 @@ import { Menu, X, ChevronRight, ShoppingCart, Search } from 'lucide-react'
 import axios from 'axios'
 import '../index.css';
 import logo from "./../assets/logo.jpeg";
+import { userContext } from '../Context/contextAPI';
+import { useSelector } from 'react-redux';
 
 const menuItems = [
   {
     name: 'Home',
-    href: 'Home',
+    to: 'Home',
   }
 ]
 
 export function NavBar() {
-  const [isAuth,setisAuth]=useState(false);
+  const cartProducts = useSelector((state) => state.cart);
+  console.log(cartProducts);
+  const {isAuth}=userContext();
+  console.log(isAuth);
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
   const navigate = useNavigate()
 
@@ -59,7 +64,7 @@ export function NavBar() {
             {menuItems.map((item) => (
               <li key={item.name}>
                 <Link
-                  to={item.href}
+                  to={item.to}
                   className="inline-flex items-center text-sm font-semibold text-gray-800 hover:text-gray-900"
                 >
                   {item.name}
@@ -75,7 +80,8 @@ export function NavBar() {
             placeholder="Serach"
           ></input>
           {isAuth &&
-          <Link to='Cart'><ShoppingCart className='text-black' /></Link>}
+          <Link to='Cart' className='flex relative'>
+              <ShoppingCart className='text-black' /><span className='bg-red-400 text-white rounded-full absolute w-4 h-4 flex items-center justify-center left-4'>{cartProducts.length}</span></Link>}
         </div>
         
         <div className="avatar ml-2 mt-2 hidden lg:block">
@@ -138,10 +144,10 @@ export function NavBar() {
                 <div className="mt-6">
                   <nav className="grid gap-y-4">
                     {menuItems.map((item) => (
-                      <a
+                      <Link
                         key={item.name}
-                        href={item.href}
-                        className="-m-3 flex items-center rounded-md p-3 text-sm font-semibold hover:bg-gray-50"
+                        to={item.to}
+                        className="m-1 flex items-center rounded-md p-3 text-sm font-semibold hover:bg-gray-50"
                       >
                         <span className="ml-3 text-base font-medium text-gray-900">
                           {item.name}
@@ -149,16 +155,34 @@ export function NavBar() {
                         <span>
                           <ChevronRight className="ml-3 h-4 w-4" />
                         </span>
-                      </a>
+                      </Link>
                     ))}
                   </nav>
                 </div>
                 {!isAuth?
                 <div>
-                  <button>Login</button>
-                  <button>SignIn</button>
+                    <Link
+                        to="/SignIn"
+                        className="m-1 flex items-center rounded-md p-3 text-sm font-semibold hover:bg-gray-50">
+                        <span className="ml-3 text-base font-medium text-gray-900">
+                          Sign In
+                        </span>
+                        <span>
+                          <ChevronRight className="ml-3 h-4 w-4" />
+                        </span>
+                    </Link>
+                    <Link
+                        to="/SignUp"
+                        className="m-1 flex items-center rounded-md p-3 text-sm font-semibold hover:bg-gray-50" >
+                        <span className="ml-3 text-base font-medium text-gray-900">
+                          Sign Up
+                        </span>
+                        <span>
+                          <ChevronRight className="ml-3 h-4 w-4" />
+                        </span>
+                      </Link>
                 </div>:
-                <div className="avatar ml-3 mt-4 flex items-center space-x-2">
+                <div className="avatar ml-3 flex items-center space-x-2">
                   <img
                     className="inline-block h-10 w-10 rounded-full"
                     src='https://cdn-icons-png.flaticon.com/512/3641/3641963.png'

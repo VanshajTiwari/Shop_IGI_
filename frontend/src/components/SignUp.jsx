@@ -13,7 +13,7 @@ export function SignUp() {
     e.preventDefault();
     try {
       //api call
-      console.log(name,email,password);
+      
       const response = await axios.post('http://localhost:3000/auth/signup', {
         username : name,
         email,
@@ -22,6 +22,7 @@ export function SignUp() {
 
       // Handle the response, e.g., redirect to a new page or show a success message
       console.log('User signed up successfully', response.data);
+      localStorage.setItem("jwtToken",response.data.token);
       toast.success('Registered Successful');
     } catch (error) {
       console.log(error);

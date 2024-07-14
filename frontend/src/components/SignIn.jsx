@@ -4,8 +4,10 @@ import { ArrowRight } from 'lucide-react'
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import logo from "./../assets/logo.jpeg";
+import { userContext } from '../Context/contextAPI';
 
 export function SignIn() {
+  const {setAuth,setAdmin}=userContext();
   const [email, setEmail] = useState("");
   const [password, setPass] = useState("");
   const navigate = useNavigate()
@@ -14,12 +16,14 @@ export function SignIn() {
     e.preventDefault();
     try {
       //api call
-      console.log(email, password);
       const response = await axios.post('http://localhost:3000/auth/login', {
         email,
         password,
       }, { withCredentials: true});
-
+      
+      // console.log(setAdmin(e=>response.data.isAuth));
+      setAuth(e=>true);
+      setAdmin(e=>response.data.isAdmin);
       // Handle the response, e.g., redirect to a new page or show a success message
       if (response) {
         navigate('/Home')

@@ -1,8 +1,15 @@
 import Products from "../Products"
 import "./Home.css"
 import {Link} from 'react-router-dom'
-
+import {decodeToken} from "react-jwt";
 function Home() {
+
+  // const token=localStorage.getItem("jwt");
+  // async function decode(){
+  //   // console.log(await jwt.decode(token,"mysecret"));
+  //   console.log(decodeToken(token));
+  // }
+  // decode();
   return (
     <>
       <div className="home">
