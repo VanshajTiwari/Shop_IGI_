@@ -31,7 +31,14 @@ const requireAuth = (req, res, next) => {
     next();
   }
 };
-
+const loggedIn=async(req,res,next)=>{
+  const token=req.cookies.jwt;
+  if(!token){
+    res.json({"status":"fail","Error":"Unauthorized"});
+    return;
+  }
+  next();
+}
 const requireAdmin = (req, res, next) => {
   const token = req.cookies.jwt;
   // check json web token exists & is verified
@@ -71,4 +78,4 @@ const checkUser = (req, res, next) => {
   }
 };
 
-module.exports = { requireAuth, requireAdmin };
+module.exports = { requireAuth, requireAdmin,loggedIn };

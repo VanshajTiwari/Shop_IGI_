@@ -31,7 +31,16 @@ const userSchema = new mongoose.Schema({
     zipCode: String,
     country: String,
   },
-  phoneNumber: String,
+  phoneNumber: {
+    numberType:{
+      type:String,
+      enum:["mobile","phone"],
+      default:"mobile"
+    },
+    countryCode:String,
+    number:Number,
+
+  },
   // orders: [
   //   {
   //     type: mongoose.Schema.Types.ObjectId,

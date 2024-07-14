@@ -40,7 +40,8 @@ app.use(session({
 app.set('view engine', 'ejs');
 
 // database connection
-const dbURI = 'mongodb://127.0.0.1:27017/authDB';
+require('dotenv').config({path:`${path.join(__dirname,"config.env")}`});
+const dbURI = process.env.CONN_STRING;
 mongoose.connect(dbURI)
   .then((result) => {
       app.listen(3000, () => console.log("http://127.0.0.1:3000"))

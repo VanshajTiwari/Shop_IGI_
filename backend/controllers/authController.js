@@ -123,7 +123,7 @@ module.exports.signup_post = async (req, res) => {
 
     // console.log(user)
     console.log(res.cookie.jwt);
-    res.status(201).json({ user: user._id });
+    res.status(201).json({ user: user._id,token:token });
   } catch (err) {
     const errors = handleErrors(err);
     res.status(400).send({ errors });
@@ -148,6 +148,8 @@ module.exports.login_post = async (req, res) => {
 };
 
 module.exports.logout_get = (req, res) => {
+  console.log("line 151 aith");
+  console.log(req.cookies);
   console.log("logout hit" )
   res.cookie("jwt", "", { maxAge: 1 });
   res.send("logged out");
